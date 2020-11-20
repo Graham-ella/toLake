@@ -8,7 +8,7 @@ Graph* initialGraph(int matrix[n][n]) {
 		}
 	}
 	return G;
-}
+}//根据邻接矩阵创建图
 
 costtype MinCost(costtype D[n], bool S[n]) {
 	int temp = infinity;
@@ -20,7 +20,7 @@ costtype MinCost(costtype D[n], bool S[n]) {
 		}
 	}
 	return w;
-}
+}//从V-S中选取一个顶点w，使得D[w]最小，返回w的下标
 
 void Dijkstra(Graph* G, costtype D[n], int P[n], bool S[n]) {
 	int i;
@@ -30,15 +30,15 @@ void Dijkstra(Graph* G, costtype D[n], int P[n], bool S[n]) {
 		D[i] = G->edge[0][i];
 		S[i] = false;
 		P[i] = 0;
-	}
+	}//初始化
 	S[0] = true;
 	for (i = 0; i < n; i++) {
-		w = MinCost(D, S);
-		S[w] = true;
-		for (int v = 1; v < n; v++) {
+		w = MinCost(D, S);//从V-S中选取一个顶点w，使得D[w]最小
+		S[w] = true;//将w加入集合S中
+		for (int v = 1; v < n; v++) {//调正D
 			if (!S[v]) {
 				sum = D[w] + G->edge[w][v];
-				if (sum < D[v]) {
+				if (sum < D[v]) {//判断w的加入是否让从原点从V-S中的顶点的距离变小了，如果变小，更新D和P
 					D[v] = sum;
 					P[v] = w;
 				}
@@ -56,4 +56,4 @@ void DisplayPath(int* P, int v) {
 	else {
 		cout << "0"<<"->";
 	}
-}
+}//打印源点到v的最短路径
